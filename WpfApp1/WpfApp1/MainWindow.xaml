@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid Background="Gray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Image Name ="Cam" HorizontalAlignment="center" VerticalAlignment="center" Source="{Binding CurrentFrame}" Grid.Row="3"  Grid.Column="1"/>
+        <Grid Grid.Column="1" Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Iron Library"  Command="{Binding IronButtonCommand}" Grid.Column="1"/>
+            <Button Content="ZXing Library"  Command="{Binding ZXingButtonCommand}" Grid.Column="0"/>
+            <Button Content="Scan Image"  Command="{Binding ScanButtonCommand}" Grid.Column="2" IsEnabled="{Binding IsImageMode}"/>
+        </Grid>
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5, 0, 0, 0">
+            <CheckBox Content="Debug" IsChecked="{Binding IsDebugMode}" VerticalAlignment="Center" HorizontalAlignment="Left"></CheckBox>
+            <CheckBox Content="Detector" IsChecked="{Binding IsDetectorActive}" VerticalAlignment="Center" HorizontalAlignment="Left"></CheckBox>
+        </StackPanel>
+        <CheckBox Grid.Column="0" Grid.Row="0" Content="Video" IsChecked="{Binding IsVideoMode}" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+        <TextBlock Foreground="AliceBlue" Text="{Binding LibActive}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock Text="Image path" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding ImagePath}" IsEnabled="{Binding IsImageMode}"></TextBox>
+        <TextBlock Text="{Binding BarCodeText}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{Binding StateColor}"/>
+    </Grid>
+</Window>
